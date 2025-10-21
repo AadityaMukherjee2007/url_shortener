@@ -1,5 +1,19 @@
 {% extends "Shortener/layout.html" %}
 
 {% block body %}
-    <h1>URL Shortener</h1>
+    <div class="w-full shadow-md mb-5 bg-gray-100">
+        <h1 class="text-center text-[30px]">URL Shortener</h1>
+    </div>
+    <div class="flex justify-center">
+        <form method="post">
+            <div class="flex-col shadow-md rounded-lg m-5 p-3">
+                <div class="">
+                    <input type="text" placeholder="Enter URL to Shorten" id="inputURL" class="p-2 m-2 shadow-md rounded-lg hover:border-indigo-300 focus:border-indigo-300" required>
+                </div>
+                <div class="justify-center">
+                    <input type="submit" class="border border-bg-200 p-1 m-2 shadow-md rounded-lg hover:bg-gray-200" value="Shorten">
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}
