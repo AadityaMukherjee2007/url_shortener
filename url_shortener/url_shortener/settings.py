@@ -25,12 +25,13 @@ SECRET_KEY = "django-insecure-^-*31kv0p5aal!#4f(uade9knc=3lffy73@+a+5aa&0q%k*%(=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".ngrok-free.app", "127.0.0.1"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "Shortener",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
