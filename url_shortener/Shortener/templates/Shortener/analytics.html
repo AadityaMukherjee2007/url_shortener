@@ -1,0 +1,19 @@
+<h2>URL Analytics</h2>
+<table border="1" cellpadding="8">
+  <tr>
+    <th>Short URL</th>
+    <th>Original URL</th>
+    <th>Clicks</th>
+    <th>Last Accessed</th>
+    <th>Created At</th>
+  </tr>
+  {% for link in links %}
+  <tr>
+    <td><a href="/{{ link.slug }}">/{{ link.slug }}</a></td>
+    <td><a href="{{ link.original_url }}" target="_blank">{{ link.original_url }}</a></td>
+    <td>{{ link.clicks }}</td>
+    <td>{{ link.last_accessed|default:"—" }}</td>
+    <td>{{ link.created_at }}</td>
+  </tr>
+  {% endfor %}
+</table>
