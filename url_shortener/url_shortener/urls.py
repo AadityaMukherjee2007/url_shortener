@@ -22,3 +22,15 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("Shortener.urls"))
 ]
+
+
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('<slug:slug>/', views.redirect_view, name='redirect_view'),
+]
+
+
