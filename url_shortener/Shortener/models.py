@@ -26,3 +26,7 @@ class Link(models.Model):
 
     def __str__(self):
         return f"{self.slug} -> {self.original_url}"
+        
+    
+
+

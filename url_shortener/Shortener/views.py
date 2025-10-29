@@ -1,26 +1,30 @@
-from django.shortcuts import render
-
-from url_shortener.Shortener.models import Link
-
-# Create your views here.
-
-
-def index(request):
-    if request.method == "POST":
-        original_url = request.POST.get("original_url")
-        if original_url:
-            link, created = Link.objects.get_or_create(original_url=original_url)
-            return render(request, "Shortener/index.html", {"link": link, "created": created})
-    return render(request, "Shortener/index.html")
-
-
-
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
+from .models import Link
 
 def redirect_view(request, slug):
+    
+    from django.db.models import F
+
+   
+    Link.clicks = F('clicks') + 1
+    Link.last_accessed = timezone.now()
+    Link.save()
+    
+    Link.refresh_from_db()
+    from django.core.validators import URLValidator
+    from django.core.exceptions import ValidationError
+
+    url_validator = URLValidator()
     try:
-        link = get_object_or_404(Link, slug=slug)
-        link.clicks += 1
-        link.save()
-        return redirect(link.original_url)
-    except Link.DoesNotExist:
-        return render(request, "Shortener/404.html", status=404)
+        url_validator(Link.original_url)
+        return redirect(Link.original_url)
+    except ValidationError:
+        
+        return render(request, "invalid_url.html", status=400)
+
+
+
+def analytics(request):
+    links = Link.objects.all().order_by('-created_at')
+    return render(request, 'analytics.html', {'links': links})
